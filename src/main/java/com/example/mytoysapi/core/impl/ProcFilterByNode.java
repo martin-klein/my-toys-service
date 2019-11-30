@@ -1,6 +1,5 @@
 package com.example.mytoysapi.core.impl;
 
-import com.example.mytoysapi.common.constants.Messages;
 import com.example.mytoysapi.common.exception.LabelNotFoundException;
 import com.example.mytoysapi.consumer.model.Navigable;
 import com.example.mytoysapi.consumer.model.Navigation;
@@ -10,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
-
-import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL;
+import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL_CODE;
+import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL_MSG;
 
 @Component
 public class ProcFilterByNode {
@@ -28,6 +26,7 @@ public class ProcFilterByNode {
         Navigable result = search(navigation, filterLabel);
 
         if(result == null) {
+            //The label does not exist.
             logAndThrow();
         }
 
@@ -51,9 +50,10 @@ public class ProcFilterByNode {
         return null;
     }
 
-    private Navigable logAndThrow() {
-        String errorMessage = env.getProperty(NOT_EXISTING_LABEL);
+    private void logAndThrow() {
+        String errorMessage = env.getProperty(NOT_EXISTING_LABEL_MSG);
+        int errorCode = Integer.parseInt(env.getProperty(NOT_EXISTING_LABEL_CODE));
         LoggerFactory.getLogger(ProcFilterByNode.class).error(errorMessage);
-        throw new LabelNotFoundException(errorMessage);
+        throw new LabelNotFoundException(errorCode, errorMessage);
     }
 }

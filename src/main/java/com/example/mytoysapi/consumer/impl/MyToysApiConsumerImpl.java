@@ -1,6 +1,7 @@
 package com.example.mytoysapi.consumer.impl;
 
 import com.example.mytoysapi.common.exception.UnhealthyUpstreamServiceException;
+import com.example.mytoysapi.consumer.MyToysApiConsumer;
 import com.example.mytoysapi.consumer.model.Navigation;
 import com.example.mytoysapi.core.impl.ProcFilterByNode;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -16,11 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL;
 import static com.example.mytoysapi.common.constants.Messages.UPSTREAM_SERVICE_UNHEALTHY;
+import static com.example.mytoysapi.common.constants.Messages.UPSTREAM_SERVICE_UNHEALTHY_CODE;
 
 @Component
-public class MyToysApiConsumerImpl {
+public class MyToysApiConsumerImpl implements MyToysApiConsumer {
 
     @Value("${api.key}")
     private String apiKey;
@@ -59,7 +60,8 @@ public class MyToysApiConsumerImpl {
      */
     public Navigation readFallbackNavigation() throws UnhealthyUpstreamServiceException {
         String errorMessage = env.getProperty(UPSTREAM_SERVICE_UNHEALTHY);
+        int errorCode = Integer.parseInt(env.getProperty(UPSTREAM_SERVICE_UNHEALTHY_CODE));
         LoggerFactory.getLogger(ProcFilterByNode.class).error(errorMessage);
-        throw new UnhealthyUpstreamServiceException(errorMessage);
+        throw new UnhealthyUpstreamServiceException(errorCode, errorMessage);
     }
 }

@@ -22,10 +22,13 @@ public class CoreWrapper {
     }
 
     private LinkedHashMap<String, OrderTypeEnum> parseSortSpec(String sortSpec) {
-        LinkedHashMap<String, OrderTypeEnum> mapa = new LinkedHashMap<>();
+        if(sortSpec==null) {
+            return null;
+        }
+        LinkedHashMap<String, OrderTypeEnum> sortSpecAsMap = new LinkedHashMap<>();
         Collections.list(new StringTokenizer(sortSpec, ","))
-                .forEach(token -> mapToPair(mapa, (String)token));
-        return mapa;
+                .forEach(token -> mapToPair(sortSpecAsMap, (String)token));
+        return sortSpecAsMap;
     }
 
     private void mapToPair(LinkedHashMap<String, OrderTypeEnum> mapa, String sortSpec) {

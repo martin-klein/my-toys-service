@@ -1,5 +1,6 @@
 package com.example.mytoysapi.core.impl;
 
+import com.example.mytoysapi.consumer.MyToysApiConsumer;
 import com.example.mytoysapi.consumer.impl.MyToysApiConsumerImpl;
 import com.example.mytoysapi.consumer.model.Navigable;
 import com.example.mytoysapi.consumer.model.Navigation;
@@ -16,7 +17,7 @@ import java.util.List;
 @Component
 public class FilterAdministrationImpl implements FilterAdministration {
     @Autowired
-    private MyToysApiConsumerImpl myToysApiConsumer;
+    private MyToysApiConsumer myToysApiConsumer;
 
     @Autowired
     private ProcFilterByNode procFilterByNode;
@@ -30,8 +31,18 @@ public class FilterAdministrationImpl implements FilterAdministration {
     @Override
     public List<NavigationLink> processMyToysData(String filterLabel, LinkedHashMap<String, OrderTypeEnum> sortSpec) {
         Navigation navigation = myToysApiConsumer.readNavigation();
-        Navigable filteredEntries = procFilterByNode.filter(navigation, filterLabel);
+        Navigable filteredEntries = navigation;
+        if(filterLabel!=null) {
+            filteredEntries = procFilterByNode.filter(navigation, filterLabel);
+        }
+
         List<NavigationLink> navigationLinks = navigationEntryMapper.map(filteredEntries);
-        return procSortByOpenstackSpec.sort(navigationLinks, sortSpec);
+
+        if(sortSpec!=null) {
+            return procSortByOpenstackSpec.sort(navigationLinks, sortSpec);
+        } else {
+            return navigationLinks;
+        }
     }
+
 }

@@ -1,7 +1,9 @@
 package com.example.mytoysapi.common.exception;
 
-public class UnhealthyUpstreamServiceException extends RuntimeException {
-    public UnhealthyUpstreamServiceException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class UnhealthyUpstreamServiceException extends MyToysServiceException {
+    public UnhealthyUpstreamServiceException(int statusCode, String message) {
+        super(message, HttpStatus.valueOf(statusCode));
     }
 }
