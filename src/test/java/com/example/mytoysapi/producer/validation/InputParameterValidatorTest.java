@@ -16,16 +16,16 @@ public class InputParameterValidatorTest {
 
     @Test
     public void validInput() {
-        String labelAscUrlDesc = "Label:asc,Url:desc";
+        String labelAscUrlDesc = "label:asc,url:desc";
         inputParameterValidator.validateSortParameter(labelAscUrlDesc);
 
-        String label = "Label";
+        String label = "label";
         inputParameterValidator.validateSortParameter(label);
 
-        String url = "Url:asc";
+        String url = "url:asc";
         inputParameterValidator.validateSortParameter(url);
 
-        String urlAscLabelDesc = "Url:asc,Label:desc";
+        String urlAscLabelDesc = "url:asc,label:desc";
         inputParameterValidator.validateSortParameter(urlAscLabelDesc);
     }
 

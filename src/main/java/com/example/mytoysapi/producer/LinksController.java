@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
+/**
+ * Controller for the "/links" resource.
+ */
 @RestController
 @RequestMapping("/links")
 public class LinksController {

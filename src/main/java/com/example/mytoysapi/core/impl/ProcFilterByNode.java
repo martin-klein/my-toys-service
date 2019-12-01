@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL_CODE;
 import static com.example.mytoysapi.common.constants.Messages.NOT_EXISTING_LABEL_MSG;
 
+/**
+ * A procedure that filters navigation entries by the provided filter label.
+ */
 @Component
 public class ProcFilterByNode {
 
@@ -36,7 +39,7 @@ public class ProcFilterByNode {
     private Navigable search(Navigable navigable, String filterLabel) {
         Navigable result = null;
         if(navigable.getLabel()!=null && navigable.getLabel().equals(filterLabel)) {
-            return (NavigationEntry) navigable;
+            return navigable;
         } else {
             if (navigable.hasChildren()) {
                 for(NavigationEntry child : navigable.getChildren()) {

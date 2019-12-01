@@ -1,7 +1,6 @@
 package com.example.mytoysapi.core.impl;
 
-import com.example.mytoysapi.common.enums.OrderTypeEnum;
-import com.example.mytoysapi.core.model.NavigationLink;
+import com.example.mytoysapi.common.enums.OrderDirectionEnum;
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections4.comparators.ComparatorChain;
 import org.springframework.stereotype.Component;
@@ -17,11 +16,11 @@ import java.util.*;
 @Component
 public class ProcSortByOpenstackSpec<T> {
 
-    public List<T> sort(@NotNull List<T> sortableObject, @NotNull LinkedHashMap<String, OrderTypeEnum> sortSpec) {
+    public List<T> sort(@NotNull List<T> sortableObject, @NotNull LinkedHashMap<String, OrderDirectionEnum> sortSpec) {
         ComparatorChain<Object> chain = new ComparatorChain<>();
-        for(Map.Entry<String, OrderTypeEnum> entry : sortSpec.entrySet()) {
+        for(Map.Entry<String, OrderDirectionEnum> entry : sortSpec.entrySet()) {
             Comparator<Object> entryComparator = new BeanComparator<>(entry.getKey());
-            if(entry.getValue()==OrderTypeEnum.DESC) {
+            if(entry.getValue()== OrderDirectionEnum.DESC) {
                 entryComparator = entryComparator.reversed();
             }
             chain.addComparator(entryComparator);

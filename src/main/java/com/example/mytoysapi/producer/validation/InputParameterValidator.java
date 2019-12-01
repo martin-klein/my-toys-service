@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import static com.example.mytoysapi.common.constants.Messages.ILLEGAL_SORT_SPEC_CODE;
 import static com.example.mytoysapi.common.constants.Messages.ILLEGAL_SORT_SPEC_MSG;
 
+/**
+ * Validates the input parameters provided by the user. Currently only the sort parameter is validated.
+ */
 @Component
 public class InputParameterValidator {
 

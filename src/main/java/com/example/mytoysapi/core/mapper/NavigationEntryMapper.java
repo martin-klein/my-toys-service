@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Maps a {@link Navigable} to a list of {@link NavigationLink}.
+ */
 @Component
 public class NavigationEntryMapper {
     public List<NavigationLink> map(Navigable source) {

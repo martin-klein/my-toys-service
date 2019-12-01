@@ -17,9 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import static com.example.mytoysapi.common.constants.Messages.UPSTREAM_SERVICE_UNHEALTHY;
+import static com.example.mytoysapi.common.constants.Messages.UPSTREAM_SERVICE_UNHEALTHY_MSG;
 import static com.example.mytoysapi.common.constants.Messages.UPSTREAM_SERVICE_UNHEALTHY_CODE;
 
+/**
+ * Implements {@link MyToysApiConsumer}.
+ */
 @Component
 public class MyToysApiConsumerImpl implements MyToysApiConsumer {
 
@@ -41,7 +44,7 @@ public class MyToysApiConsumerImpl implements MyToysApiConsumer {
                     // How long does it wait to send another request to the defunct service
                     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")
             },//New thread pool is created; can be seen as new bulkhead
-            threadPoolKey = "movieInfoPool"
+            threadPoolKey = "mytoysApiPool"
     )
     public Navigation readNavigation() {
         HttpHeaders headers = new HttpHeaders();
@@ -59,7 +62,7 @@ public class MyToysApiConsumerImpl implements MyToysApiConsumer {
      * Nothing can be done here apart from returning an error quickly.
      */
     public Navigation readFallbackNavigation() throws UnhealthyUpstreamServiceException {
-        String errorMessage = env.getProperty(UPSTREAM_SERVICE_UNHEALTHY);
+        String errorMessage = env.getProperty(env.getProperty(UPSTREAM_SERVICE_UNHEALTHY_MSG));
         int errorCode = Integer.parseInt(env.getProperty(UPSTREAM_SERVICE_UNHEALTHY_CODE));
         LoggerFactory.getLogger(ProcFilterByNode.class).error(errorMessage);
         throw new UnhealthyUpstreamServiceException(errorCode, errorMessage);

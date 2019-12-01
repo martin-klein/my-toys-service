@@ -3,6 +3,9 @@ package com.example.mytoysapi.consumer.model;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Represents the Mytoys-API response's root. Is needed to allow for Spring mapping.
+ */
 public class Navigation implements Serializable, Navigable {
 
     private List<NavigationEntry> navigationEntries;

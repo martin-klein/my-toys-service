@@ -1,11 +1,10 @@
 package com.example.mytoysapi.core.impl;
 
 import com.example.mytoysapi.consumer.MyToysApiConsumer;
-import com.example.mytoysapi.consumer.impl.MyToysApiConsumerImpl;
 import com.example.mytoysapi.consumer.model.Navigable;
 import com.example.mytoysapi.consumer.model.Navigation;
-import com.example.mytoysapi.core.FilterAdministration;
-import com.example.mytoysapi.common.enums.OrderTypeEnum;
+import com.example.mytoysapi.core.MyToysApiTranformation;
+import com.example.mytoysapi.common.enums.OrderDirectionEnum;
 import com.example.mytoysapi.core.mapper.NavigationEntryMapper;
 import com.example.mytoysapi.core.model.NavigationLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * Implements {@link MyToysApiTranformation}.
+ */
 @Component
-public class FilterAdministrationImpl implements FilterAdministration {
+public class MyToysApiTranformationImpl implements MyToysApiTranformation {
     @Autowired
     private MyToysApiConsumer myToysApiConsumer;
 
@@ -29,7 +31,7 @@ public class FilterAdministrationImpl implements FilterAdministration {
     private ProcSortByOpenstackSpec<NavigationLink> procSortByOpenstackSpec;
 
     @Override
-    public List<NavigationLink> processMyToysData(String filterLabel, LinkedHashMap<String, OrderTypeEnum> sortSpec) {
+    public List<NavigationLink> processMyToysData(String filterLabel, LinkedHashMap<String, OrderDirectionEnum> sortSpec) {
         Navigation navigation = myToysApiConsumer.readNavigation();
         Navigable filteredEntries = navigation;
         if(filterLabel!=null) {

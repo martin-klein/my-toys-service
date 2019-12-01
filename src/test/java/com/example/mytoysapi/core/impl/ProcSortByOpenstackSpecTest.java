@@ -1,14 +1,11 @@
 package com.example.mytoysapi.core.impl;
 
-import com.example.mytoysapi.common.enums.OrderTypeEnum;
-import com.example.mytoysapi.consumer.model.Navigation;
-import com.example.mytoysapi.consumer.model.NavigationEntry;
+import com.example.mytoysapi.common.enums.OrderDirectionEnum;
 import com.example.mytoysapi.core.model.NavigationLink;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -27,8 +24,8 @@ public class ProcSortByOpenstackSpecTest {
     public void sortNavigationEntriesLabelAsc() {
         List<NavigationLink> links = getDummyNavigationLinks();
 
-        LinkedHashMap<String, OrderTypeEnum> orderSpec = new LinkedHashMap<>();
-        orderSpec.put("label", OrderTypeEnum.ASC);
+        LinkedHashMap<String, OrderDirectionEnum> orderSpec = new LinkedHashMap<>();
+        orderSpec.put("label", OrderDirectionEnum.ASC);
 
         List<NavigationLink> result = procSortByOpenstackSpec.sort(links, orderSpec);
 
@@ -41,8 +38,8 @@ public class ProcSortByOpenstackSpecTest {
     public void sortNavigationEntriesUrlDesc() {
         List<NavigationLink> links = getDummyNavigationLinks();
 
-        LinkedHashMap<String, OrderTypeEnum> orderSpec = new LinkedHashMap<>();
-        orderSpec.put("url", OrderTypeEnum.DESC);
+        LinkedHashMap<String, OrderDirectionEnum> orderSpec = new LinkedHashMap<>();
+        orderSpec.put("url", OrderDirectionEnum.DESC);
 
         List<NavigationLink> result = procSortByOpenstackSpec.sort(links, orderSpec);
 
@@ -59,9 +56,9 @@ public class ProcSortByOpenstackSpecTest {
         link.setUrl("Url20");
         links.add(link);
 
-        LinkedHashMap<String, OrderTypeEnum> orderSpec = new LinkedHashMap<>();
-        orderSpec.put("label", OrderTypeEnum.DESC);
-        orderSpec.put("url", OrderTypeEnum.ASC);
+        LinkedHashMap<String, OrderDirectionEnum> orderSpec = new LinkedHashMap<>();
+        orderSpec.put("label", OrderDirectionEnum.DESC);
+        orderSpec.put("url", OrderDirectionEnum.ASC);
 
         List<NavigationLink> result = procSortByOpenstackSpec.sort(links, orderSpec);
 

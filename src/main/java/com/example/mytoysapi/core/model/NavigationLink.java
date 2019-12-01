@@ -2,6 +2,9 @@ package com.example.mytoysapi.core.model;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents a label url pair.
+ */
 public class NavigationLink {
 
     @NotNull
